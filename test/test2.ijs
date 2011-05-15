@@ -99,13 +99,14 @@ if. 0 0 -.@-: nc 'user';'password' do.
   end.
 end.
 setzlocale_jddmysql_ ''
-ddconfig 'errret';0;'dayno';1;'unicode';1
+
+ddconfig 'errret';0;'dayno';0;'unicode';1
 
 smoutput '>> dddriver'
-smoutput dddriver ''
+smoutput dddriver''
 
 smoutput '>> dddrv'
-smoutput dddrv ''
+smoutput dddrv''
 
 f=. 'jdata'
 
@@ -114,18 +115,19 @@ if. _1~: ch=. ddcon 'server=',host,';uid=',user,';pwd=',password,';database=mysq
 
   smoutput '>> delete old database'
   if. _1= ch ddsql~ 'drop database if exists ',f do.
-    smoutput dderr ''
+    smoutput dderr''
   end.
 
   if. _1= ch ddsql~ 'create database ',f,' character set=utf8' do.
-    smoutput dderr ''
+    smoutput dderr''
     return.
   end.
 
   dddis ch
 
 else.
-  smoutput dderr ''
+  smoutput dderr''
+  destroy''
   return.
 end.
 
@@ -137,12 +139,12 @@ if. _1~: ch=. ddcon 'server=',host,';uid=',user,';pwd=',password,';database=',f 
 
   smoutput '>> use innodb engine which supports transactions'
   if. _1= ch ddsql~ 'set storage_engine=innodb' do.
-    smoutput dderr ''
+    smoutput dderr''
     return.
   end.
   smoutput '>> create metadata and fill sample data'
   if. _1= ch ddsql~ integerdate{::tdata_ddl;tdata_ddl2 do.
-    smoutput dderr ''
+    smoutput dderr''
     return.
   end.
   ddtrn ch
@@ -208,10 +210,20 @@ if. _1~: ch=. ddcon 'server=',host,';uid=',user,';pwd=',password,';database=',f 
   ddrbk ch
   smoutput '>> ddttrn'
   smoutput ddttrn ch
+
+  smoutput '>> value restored'
+  if. _1~: sh=. ch ddsel~ 'select * from tdata' do.
+    smoutput ddfet sh,3
+    ddend sh
+  else.
+    smoutput dderr''
+  end.
+
   smoutput '>> ddtrn'
   ddtrn ch
   smoutput '>> ddttrn'
   smoutput ddttrn ch
+  smoutput '>> update inside transaction'
   ch ddsql~ 'update tdata set SALARY=SALARY + 1'
   smoutput '>> commit transaction'
   ddcom ch
@@ -223,7 +235,7 @@ if. _1~: ch=. ddcon 'server=',host,';uid=',user,';pwd=',password,';database=',f 
   end.
   smoutput '>> dderr'
   ch ddsql~ 'update NOTABLE set status=status + 1'
-  smoutput dderr ''
+  smoutput dderr''
 
   smoutput '>> ddins'
   len=. 1e3              NB. very slow
@@ -245,16 +257,52 @@ if. _1~: ch=. ddcon 'server=',host,';uid=',user,';pwd=',password,';database=',f 
       smoutput ddfet sh,_1
       ddend sh
     else.
-      smoutput dderr ''
+      smoutput dderr''
     end.
     if. _1~: sh=. ch ddsel~ 'select * from tdata where DOH=', integerdate{::'''2008-12-03''';'20081203' do.
       smoutput ddfet sh,5
       ddend sh
     else.
-      smoutput dderr ''
+      smoutput dderr''
     end.
   else.
-    smoutput dderr ''
+    smoutput dderr''
+  end.
+
+  smoutput '>> bulk insert with ddparm'
+  ch ddsql~ 'delete from tdata where DOH=', integerdate{::'''2008-12-03''';'20081203'
+  smoutput '>> begin insert ', (":len), ' rows'
+  sql=. 'insert into tdata(NAME, SEX, DEPT, DOB, DOH, SALARY) values (?,?,?,?,?,?)'
+  if. _1~: rc=. ch ddparm~ sql;((3#SQL_VARCHAR),(2#integerdate{::SQL_TYPE_DATE,SQL_INTEGER),SQL_INTEGER);data do.
+    smoutput '>> finish insert ', (":len), ' rows'
+    smoutput '>> ddcnt'
+    smoutput ddcnt ch
+    if. _1~: sh=. ch ddsel~ 'select count(*) from tdata where DOH=', integerdate{::'''2008-12-03''';'20081203' do.
+      smoutput ddfet sh,_1
+      ddend sh
+    else.
+      smoutput dderr''
+    end.
+  else.
+    smoutput dderr''
+  end.
+
+  smoutput '>> bulk insert with ddsparm'
+  ch ddsql~ 'delete from tdata where DOH=', integerdate{::'''2008-12-03''';'20081203'
+  smoutput '>> begin insert ', (":len), ' rows'
+  sql=. 'insert tdata(NAME, SEX, DEPT, DOB, DOH, SALARY) values (?,?,?,?,?,?)'
+  if. _1~: rc=. ch ddsparm~ sql;data do.
+    smoutput '>> finish insert ', (":len), ' rows'
+    smoutput '>> ddcnt'
+    smoutput ddcnt ch
+    if. _1~: sh=. ch ddsel~ 'select count(*) from tdata where DOH=', integerdate{::'''2008-12-03''';'20081203' do.
+      smoutput ddfet sh,_1
+      ddend sh
+    else.
+      smoutput dderr''
+    end.
+  else.
+    smoutput dderr''
   end.
 
   smoutput '>> ddsparm'
@@ -264,10 +312,10 @@ if. _1~: ch=. ddcon 'server=',host,';uid=',user,';pwd=',password,';database=',f 
     if. _1~: sh=. ch ddsel~ 'select * from tdata where photo is not null' do.
       smoutput ddfet sh,_1
     else.
-      smoutput dderr ''
+      smoutput dderr''
     end.
   else.
-    smoutput dderr ''
+    smoutput dderr''
   end.
 
   smoutput '>> ddsparm box'
@@ -278,10 +326,32 @@ if. _1~: ch=. ddcon 'server=',host,';uid=',user,';pwd=',password,';database=',f 
       smoutput ddfet sh,_1
       ddend sh
     else.
-      smoutput dderr ''
+      smoutput dderr''
     end.
   else.
-    smoutput dderr ''
+    smoutput dderr''
+  end.
+
+  smoutput '>> ddsparm long binary'
+  photo1=. a.{~ ?1e5#256
+  photo2=. a.{~ ?5e6#256
+  if. 0= rc=. ch ddsparm~ 'update tdata set PHOTO=? where NAME=?';(photo1;photo2);< (>'Abbott K';'Denny D') do.
+    smoutput '>> ddcnt'
+    smoutput ddcnt ch
+    if. _1~: sh=. ch ddsel~ 'select NAME,PHOTO from tdata where NAME in (''Abbott K'',''Denny D'') order by NAME' do.
+      photo=. 1{"1 ddfet sh,_1
+      ddend sh
+      smoutput 'photo # ',": #&> photo
+      if. photo -: photo1;photo2 do.
+        smoutput 'long binary test ok'
+      else.
+        smoutput 'long binary test failed'
+      end.
+    else.
+      smoutput dderr''
+    end.
+  else.
+    smoutput dderr''
   end.
 
   smoutput '>> dddis'
@@ -289,9 +359,9 @@ if. _1~: ch=. ddcon 'server=',host,';uid=',user,';pwd=',password,';database=',f 
 
   smoutput '>> finish'
 else.
-  smoutput dderr ''
+  smoutput '>> cannot open ',f
 end.
 EMPTY
 )
 
-testdb ''
+testdb''

@@ -422,11 +422,10 @@ SQL_WVARCHAR_z_=: SQL_WVARCHAR=: _9
 SQL_WLONGVARCHAR_z_=: SQL_WLONGVARCHAR=: _10
 SQL_UNIQUEID_z_=: SQL_UNIQUEID=: _11
 
-native_type_table=: 0 ". 0 : 0
+native_type_table=: ". ;._2[ 0 : 0
 MYSQL_TYPE_NEWDECIMAL
 MYSQL_TYPE_NEWDECIMAL
 MYSQL_TYPE_TINY
-MYSQL_TYPE_DECIMAL
 MYSQL_TYPE_SHORT
 MYSQL_TYPE_LONG
 MYSQL_TYPE_LONGLONG
@@ -440,7 +439,7 @@ MYSQL_TYPE_VAR_STRING
 MYSQL_TYPE_BLOB
 )
 
-odbc_type_table=: 0 ". 0 : 0
+odbc_type_table=: ". ;._2[ 0 : 0
 SQL_NUMERIC
 SQL_DECIMAL
 SQL_TINYINT
@@ -1225,6 +1224,7 @@ parsesqlparm=: 3 : 0
 y=. deb y
 fmt=. 0  
 if. ('insert into' ; 'select into') e.~ <tolower 11{.y do. ix=. 11 [ fmt=. 1
+elseif. 'insert ' -: tolower 7{.y do. ix=. 6 [ fmt=. 1
 elseif. 'delete from' -: tolower 11{.y do. ix=. 11
 elseif. 'update' -: tolower 6{.y do. ix=. 6
 elseif. do. ix=. _1
