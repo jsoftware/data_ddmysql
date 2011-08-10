@@ -1109,10 +1109,14 @@ ddrbk=: 3 : 0
 SQL_ROLLBACK comrbk y
 )
 ddttrn=: 3 : 0"0  
-if. y e. CHALL do.
-  y e. CHTR
+if. _1~: y do.
+  if. y e. CHALL do.
+    y e. CHTR
+  else.
+    0
+  end.
 else.
-  0
+  0~:#CHTR
 end.
 )
 
