@@ -55,7 +55,7 @@ i.0 0
 )
 
 MYSQL_OK=: 0
-PREFETCH_ROWS=: IFWIN{1000 255     
+PREFETCH_ROWS=: IFWIN{1000 255
 MYSQL_NO_DATA=: 100
 MYSQL_DATA_TRUNCATED=: 101
 
@@ -314,14 +314,14 @@ mysql_stmt_result_metadata=: (libmysql, ' mysql_stmt_result_metadata > x x' ) &c
 mysql_stmt_sqlstate=: (libmysql, ' mysql_stmt_sqlstate > x x' ) &cd
 mysql_store_result=: (libmysql, ' mysql_store_result > x x' ) &cd
 mysql_use_result=: (libmysql, ' mysql_use_result > x x' ) &cd
-ISI01=: 'ISI01 Too many connections'  
-ISI02=: 'ISI02 Too many statements'   
+ISI01=: 'ISI01 Too many connections'
+ISI02=: 'ISI02 Too many statements'
 ISI03=: 'ISI03 Bad connection handle'
 ISI04=: 'ISI04 Bad statement handle'
 ISI05=: 'ISI05 Not a select command'
 ISI06=: 'ISI06 Transactions not supported'
 ISI07=: 'ISI07 Bad transaction state'
-ISI08=: 'ISI08 Bad arguments'         
+ISI08=: 'ISI08 Bad arguments'
 ISI09=: 'ISI09 Unsupported data type'
 ISI10=: 'ISI10 Unable to bind all columns'
 ISI11=: 'ISI11 Unable to initialize ODBC environment'
@@ -351,8 +351,8 @@ SQL_NEED_DATA=: 99
 SQL_MAX_DSN_LENGTH=: 32
 SQL_COMMIT=: 0
 SQL_ROLLBACK=: 1
-SQL_BEGIN=: 2          
-SQL_NTS=: _3                     
+SQL_BEGIN=: 2
+SQL_NTS=: _3
 SQL_HANDLE_ENV=: 1
 SQL_HANDLE_DBC=: 2
 SQL_HANDLE_STMT=: 3
@@ -361,13 +361,13 @@ SQL_FETCH_NEXT=: 1
 SQL_FETCH_FIRST=: 2
 SQL_ATTR_ODBC_VERSION=: 200
 SQL_OV_ODBC3=: 3
-SQL_ATTR_ROW_BIND_TYPE=: 5       
-SQL_BIND_BY_COLUMN=: 0           
+SQL_ATTR_ROW_BIND_TYPE=: 5
+SQL_BIND_BY_COLUMN=: 0
 SQL_ATTR_ROWS_FETCHED_PTR=: 26
 SQL_ATTR_ROW_ARRAY_SIZE=: 27
 SQL_ATTR_ROW_STATUS_PTR=: 25
-SQL_ATTR_AUTOCOMMIT=: 102        
-SQL_AUTOCOMMIT_OFF=: 0           
+SQL_ATTR_AUTOCOMMIT=: 102
+SQL_AUTOCOMMIT_OFF=: 0
 SQL_ROWSET_SIZE=: 9
 SQL_IS_UINTEGER=: _5
 
@@ -390,9 +390,9 @@ SQL_CONCUR_LOCK=: 2
 SQL_PARAM_INPUT=: 1
 
 'UCS2 UCS4 UTF8 OEMCP'=: i.4
-COLUMNBUF=: 1000     
-LONGBUF=: 500000     
-SHORTBUF=: 255       
+COLUMNBUF=: 1000
+LONGBUF=: 500000
+SHORTBUF=: 255
 MAXARRAYSIZE=: 65535
 SQL_CHAR_z_=: SQL_CHAR=: 1
 SQL_NUMERIC_z_=: SQL_NUMERIC=: 2
@@ -458,10 +458,10 @@ SQL_LONGVARBINARY
 DD_SUCCESS=: MYSQL_OK
 DD_ERROR=: SQL_ERROR,SQL_INVALID_HANDLE
 DD_OK=: MYSQL_OK
-SZI=: IF64{4 8     
+SZI=: IF64{4 8
 SFX=: >IF64{'32';'64'
 
-iad=: 15!:14@boxopen   
+iad=: 15!:14@boxopen
 b0=: <"0
 bs=: ];#
 fat=: ''&$@:,
@@ -594,7 +594,7 @@ if. 0= nc <('BIND',":y) do.
     4!:55 <'BINDP',(":y),'_',":i
     4!:55 <'BINDLN',(":y),'_',":i
     if. p=. bind + i*SZ_MYSQL_BIND do.
-      if. 1=io do.  
+      if. 1=io do.
         memf {. memr p, MYSQL_BIND_buffer, 1 4
       end.
       memf {. memr p, MYSQL_BIND_is_null, 1 4
@@ -662,7 +662,7 @@ else.
   0 15$<''
 end.
 )
-ddconfig=: 3 : 0  
+ddconfig=: 3 : 0
 clr 0
 key=. {.keynvalue=. |: _2]\ y
 value=. {:keynvalue
@@ -675,15 +675,15 @@ for_i. i.#key do.
 end.
 0
 )
-dddriver=: 3 : 0  
+dddriver=: 3 : 0
 clr 0
 'MYSQL'
 )
-dddrv=: 3 : 0  
+dddrv=: 3 : 0
 clr 0
 ret_DD_OK ,:'MySQL';'MySQL'
 )
-ddsrc=: 3 : 0  
+ddsrc=: 3 : 0
 clr 0
 if. -. isia y do. errret ISI08 return. end.
 if. -. y e. CHALL do. errret ISI03 return. end.
@@ -698,7 +698,7 @@ else.
 end.
 )
 
-ddtbl=: 3 : 0  
+ddtbl=: 3 : 0
 clr 0
 if. -. isia y do. errret ISI08 return. end.
 if. -. y e. CHALL do. errret ISI03 return. end.
@@ -707,7 +707,7 @@ if. _1= sh=. 0{:: rc=. 'show tables' preparesel y do. rc return. end.
 CSPALL=: CSPALL,y,sh
 ret_DD_OK sh
 )
-ddtblx=: 3 : 0  
+ddtblx=: 3 : 0
 if. -.@sqlresok z=. ddtbl y do. z
 elseif. -.@sqlresok dat=. ddfch sh,_1 [ sh=. sqlres z do. dat
 elseif.do. fmtfchres dat [ ddend^:UseErrRet sh
@@ -716,7 +716,7 @@ end.
 ddcheck=: 3 : 0
 if. _1=y do. empty smoutput dderr $0 else. y end.
 )
-ddcol=: 4 : 0  
+ddcol=: 4 : 0
 clr 0
 w=. y
 if. -. (iscl x) *. isia w=. fat w do. errret ISI08 return. end.
@@ -760,7 +760,7 @@ else.
 end.
 ret_DD_OK r
 )
-ddcon=: 3 : 0  
+ddcon=: 3 : 0
 f=. (i.&';')({. ; }.@}.) ]
 clr 0
 if. -.iscl y do. errret ISI08 return. end.
@@ -810,14 +810,14 @@ dddbms HDBC
 ret_DD_OK HDBC
 )
 
-dddis=: 3 : 0"0   
+dddis=: 3 : 0"0
 clr 0
 w=. y
 if. -.isia w=. fat w do. errret ISI08 return. end.
 if. -. w e. CHALL do. errret ISI03 return. end.
 
 if. #sh=. 1{"1 CSPALL#~w=0{"1 CSPALL do. ddend"0 sh end.
-ch=. w 
+ch=. w
 if. sqlbad mysql_close w do. errret 0,ch return. end.
 CHALL=: CHALL-.ch
 CSPALL=: CSPALL#~ch~:0{"1 CSPALL
@@ -876,7 +876,7 @@ end.
 sh;''
 )
 
-ddsel=: 4 : 0  
+ddsel=: 4 : 0
 clr 0
 if. -.(isia w=. fat y) *. iscl x do. errret ISI08 return. end.
 if. -.w e. CHALL do. errret ISI03 return. end.
@@ -906,7 +906,7 @@ else.
 end.
 )
 
-ddsql=: 4 : 0  
+ddsql=: 4 : 0
 clr DDROWCNT=: 0
 if. -.(isia y) *. iscl x do. errret ISI08 return. end.
 if. -.y e.CHALL do. errret ISI03 return. end.
@@ -924,14 +924,14 @@ DDROWCNT=: mysql_affected_rows y
 ret_DD_OK DD_OK
 )
 
-ddfch=: 3 : 0  
+ddfch=: 3 : 0
 1 ddfch y
 :
 clr 0
 if. -. isiu y do. errret ISI08 return. end.
 'sh r'=. 2{.,y,1
 if. -. sh e.1{"1 CSPALL do. errret ISI04 return. end.
-r=. (r<0){r,_1  
+r=. (r<0){r,_1
 if. 0=#ci=. getallcolinfo sh do.
   r=. errret 1,sh
   r [ freestmt sh return.
@@ -950,13 +950,13 @@ else.
 end.
 )
 
-ddfet=: 3 : 0  
+ddfet=: 3 : 0
 clr 0
 if. -. isiu y do. errret ISI08 return. end.
 if. -. isiu y do. errret ISI08 return. end.
 'sh r'=. 2{.,y,1
 if. -. sh e.1{"1 CSPALL do. errret ISI04 return. end.
-r=. (r<0){r,_1  
+r=. (r<0){r,_1
 if. 0=#ci=. getallcolinfo sh do.
   r=. errret 1,sh
   r [ freestmt sh return.
@@ -989,11 +989,11 @@ else.
 end.
 )
 
-ddcnt=: 3 : 0  
+ddcnt=: 3 : 0
 ret_DD_OK DDROWCNT
 )
 
-ddend=: 3 : 0"0  
+ddend=: 3 : 0"0
 clr 0
 w=. y
 if. -.isia w=. fat w do. errret ISI08 return. end.
@@ -1003,7 +1003,7 @@ z=. freestmt sh
 CSPALL=: CSPALL#~sh~:1{"1 CSPALL
 if. sqlbad z do. errret 1,sh else. ret_DD_OK DD_OK end.
 )
-dddata=: 3 : 0  
+dddata=: 3 : 0
 clr 0
 w=. >{.y
 if. -. isia w=. fat w do. errret ISI08 return. end.
@@ -1026,7 +1026,7 @@ if. (0>c) +. c>: ('BINDN',":w)~ do. errret ISI54 return. end.
 ". ::(''"_) 'BINDLN',(":w),'_',":c
 )
 
-dddcnt=: 3 : 0  
+dddcnt=: 3 : 0
 clr 0
 w=. y
 if. -. isia w=. fat w do. errret ISI08 return. end.
@@ -1034,17 +1034,17 @@ if. -.w e.1{"1 CSPALL do. errret ISI04 return. end.
 
 ret_DD_OK ". ::0: 'BINDRR',":w
 )
-ddrow=: dddcnt 
+ddrow=: dddcnt
 
 initodbcenv=: 3 : 0
-CHTR=: CHALL=: i.0  
-CSPALL=: 0 2$0      
-SMPALL=: 0 2$0      
-DBMSALL=: 0 12$<''  
-LERR=: ''           
-ALLDM=: i. 0 3      
-BADTYPES=: i. 0 0   
-DDROWCNT=: 0        
+CHTR=: CHALL=: i.0
+CSPALL=: 0 2$0
+SMPALL=: 0 2$0
+DBMSALL=: 0 12$<''
+LERR=: ''
+ALLDM=: i. 0 3
+BADTYPES=: i. 0 0
+DDROWCNT=: 0
 
 DD_OK
 )
@@ -1057,7 +1057,7 @@ if. set <'CHALL' do. if. #CHALL do. dddis CHALL end. end.
 erase ;:'CSPALL CHALL CHTR'
 )
 
-ddcnm=: 3 : 0  
+ddcnm=: 3 : 0
 clr 0
 w=. y
 if. -. isia w=. fat w do. errret ISI08 return. end.
@@ -1067,13 +1067,13 @@ assert. 15= {:@$ ci
 ret_DD_OK 4{"1 ci
 )
 
-dderr=: 3 : 0  
+dderr=: 3 : 0
 0 dderr y
 :
 LERR
 )
 
-ddtrn=: 3 : 0  
+ddtrn=: 3 : 0
 clr 0
 w=. fat y
 if. -. isia w=. fat w do. errret ISI08 return. end.
@@ -1101,14 +1101,14 @@ else.
 end.
 )
 
-ddcom=: 3 : 0  
+ddcom=: 3 : 0
 SQL_COMMIT comrbk y
 )
 
-ddrbk=: 3 : 0  
+ddrbk=: 3 : 0
 SQL_ROLLBACK comrbk y
 )
-ddttrn=: 3 : 0"0  
+ddttrn=: 3 : 0"0
 if. _1~: y do.
   if. y e. CHALL do.
     y e. CHTR
@@ -1120,7 +1120,7 @@ else.
 end.
 )
 
-dddbms=: 3 : 0  
+dddbms=: 3 : 0
 if. -. isia y=. fat y do. errret ISI08 return. end.
 if. -.y e. CHALL do. errret ISI03 return. end.
 ch=. y
@@ -1130,7 +1130,7 @@ if. ch e. >0{("1) DBMSALL do.
   return.
 end.
 bugflag=. 0
-chardiv=. 1  
+chardiv=. 1
 if. 'utf8' -: 4{. memr 0 _1,~ mysql_character_set_name ch do.
   charset=. UTF8
   chardiv=. 3
@@ -1215,7 +1215,7 @@ if. (,a:)-:tbl do.
   elseif. do. errret ISI08 return. end.
   tbl=. < tbl -. '+/()*,-.:;=?@\^_`{|}'''
 end.
-if. (1~:#tbl) +. a: e. tbl do.  
+if. (1~:#tbl) +. a: e. tbl do.
   errret ISI52 return.
 end.
 if. (<:#x)~:#ty do.
@@ -1225,7 +1225,7 @@ inssql=. 'insert into ', (>@{.tbl), '(', (}. ; (<',') ,("0) flds), ') values (',
 z=. (inssql ; (|: oty,.lns,.ty) ; (}.x)) ddparm y
 )
 parsesqlparm=: 3 : 0
-fmt=. 0  
+fmt=. 0
 if. ('insert into' ; 'select into') e.~ <tolower 11{.y=. dlb y do. ix=. 11 [ fmt=. 1
 elseif. 'insert ' -: tolower 7{.y do. ix=. 6 [ fmt=. 1
 elseif. 'delete from' -: tolower 11{.y do. ix=. 11
@@ -1242,15 +1242,15 @@ if. 1=fmt do.
 end.
 if. 0=fmt do.
   y1=. y
-  f1=. (0=(2&|)) +/\ ''''=y1  
-  f2=. (> 0:,}:) f1           
-  f2=. 0,}.f2                 
-  y1=. ' ' (I.-.f1)}y1        
-  y1=. ' ' (I.f2)}y1          
-  f1=. 0< (([: +/\ '('&=) - ([: +/\ ')'&=)) y1    
-  y1=. ' ' (I.f1 *. ','=y1)}y1    
-  y1=. ' ' (I.y1 e.'()')}y1    
-  y1=. (' where ';', where ';' WHERE ';', WHERE ';' and ';', and ';' AND ';', AND ';' or ';', or ';' OR ';', OR ') stringreplace (deb y1) , ','  
+  f1=. (0=(2&|)) +/\ ''''=y1
+  f2=. (> 0:,}:) f1
+  f2=. 0,}.f2
+  y1=. ' ' (I.-.f1)}y1
+  y1=. ' ' (I.f2)}y1
+  f1=. 0< (([: +/\ '('&=) - ([: +/\ ')'&=)) y1
+  y1=. ' ' (I.f1 *. ','=y1)}y1
+  y1=. ' ' (I.y1 e.'()')}y1
+  y1=. (' where ';', where ';' WHERE ';', WHERE ';' and ';', and ';' AND ';', AND ';' or ';', or ';' OR ';', OR ') stringreplace (deb y1) , ','
   a=. (',' = y1) <;._2 y1
   b=. (#~ ('='&e. *. '?'&e.)&>) a
   c=. ({.~ i:&'=')&.> b
@@ -1259,16 +1259,16 @@ else.
   fld=. <@dltb;._1 ',', ' ' (I.a e.'()')} a=. (}.~ i.&'(') y{.~ iv
 
   y1=. y}.~ iv + #' values '
-  f1=. (0=(2&|)) +/\ ''''=y1  
-  f2=. (> 0:,}:) f1           
-  f2=. 0,}.f2                 
-  y1=. ' ' (I.-.f1)}y1        
-  y1=. ' ' (I.f2)}y1          
-  y1=. }.}:dltb y1            
-  f1=. 0< (([: +/\ '('&=) - ([: +/\ ')'&=)) y1    
-  y1=. ' ' (I.f1 *. ','=y1)}y1    
-  y1=. ' ' (I.y1 e.'()')}y1    
-  y1=. (deb y1),','   
+  f1=. (0=(2&|)) +/\ ''''=y1
+  f2=. (> 0:,}:) f1
+  f2=. 0,}.f2
+  y1=. ' ' (I.-.f1)}y1
+  y1=. ' ' (I.f2)}y1
+  y1=. }.}:dltb y1
+  f1=. 0< (([: +/\ '('&=) - ([: +/\ ')'&=)) y1
+  y1=. ' ' (I.f1 *. ','=y1)}y1
+  y1=. ' ' (I.y1 e.'()')}y1
+  y1=. (deb y1),','
   a=. <;._2 y1
   msk=. ('?'&e.)&> a
   parm=. ((#fld){.msk)#fld
@@ -1317,7 +1317,7 @@ if. 2=$$tyln do.
     assert. 0
   end.
 else.
-  sqlty=. tyln [ lns=. (#tyln)#_2 
+  sqlty=. tyln [ lns=. (#tyln)#_2
 end.
 if. ''-:ty do.
   try.
@@ -1360,7 +1360,7 @@ bind=. mema sb=. SZ_MYSQL_BIND * #ty
 (sb#{.a.) memw bind,0,sb,2
 (bindname)=: bind
 ('BINDN',":sh)=: #ty
-('BINDIO',":sh)=: 0        
+('BINDIO',":sh)=: 0
 
 ec=. MYSQL_OK
 for_i. i.ncol do.
@@ -1686,7 +1686,7 @@ case. MYSQL_TYPE_LONGLONG do.
     if. IF64 do.
       z=. memr buf,0 1 4
     else.
-      z=. memr buf,0 4 2      
+      z=. memr buf,0 4 2
     end.
     st=. 8
   else.
@@ -1821,7 +1821,7 @@ else.
   mysql_stmt_bind_result sh,bind
   (bindname)=: bind
   ('BINDN',":sh)=: #ty
-  ('BINDIO',":sh)=: 1          
+  ('BINDIO',":sh)=: 1
   ('BINDRR',":sh)=: cnt
 end.
 
@@ -1864,7 +1864,7 @@ while.do.
     (prefst,":i)=: (prefst,":i)~, lengthorstatus
   end.
 
-  if. 0=r=. <:r do. break. end.  
+  if. 0=r=. <:r do. break. end.
   z=. mysql_stmt_fetch sh
 end.
 
