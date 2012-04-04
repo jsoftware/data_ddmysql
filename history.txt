@@ -5,3 +5,6 @@ data/ddmysql - change history
 
 == 1.0.1 ==
  * bug fix. update test scripts.
+
+== 1.0.2 ==
+ * does not run under android
