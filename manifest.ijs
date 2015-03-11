@@ -10,9 +10,9 @@ For Linux, install libmysqlclient (or similar) from your distro repository.  Or 
 See wiki page http://www.jsoftware.com/jwiki/JDD for help.
 )
 
-VERSION=: '1.0.7'
+VERSION=: '1.0.8'
 
-RELEASE=: 'j802 j803'
+RELEASE=: 'j802 j803 j804'
 
 PLATFORMS=: ''
 
