@@ -37,7 +37,7 @@ EMPTY
 )
 3 : 0''
 select. UNAME
-case. 'Linux' do. libmysql=: 'libmysqlclient.so.16'
+case. 'Linux' do. libmysql=: 'libmysqlclient.so.18'
 case. 'Darwin' do. libmysql=: 'libmysqlclient.dylib'
 case. 'Win' do. libmysql=: 'libmysql.dll'
 case. do. libmysql=: ''

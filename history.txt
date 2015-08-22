@@ -11,3 +11,6 @@ data/ddmysql - change history
 
 == 1.0.4 ==
  * j801
+
+== 1.0.9 ==
+ * update linux so name
