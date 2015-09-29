@@ -7,7 +7,7 @@ Accessing MySQL server with native C API using the data driver (JDD) interface s
 
 For Linux, install libmysqlclient (or similar) from your distro repository.  Or download from http://www.mysql.com/downloads.html
 
-See wiki page http://www.jsoftware.com/jwiki/JDD for help.
+See wiki page http://code.jsoftware.com/wiki/JDD for help.
 )
 
 VERSION=: '1.0.9'
