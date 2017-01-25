@@ -25,7 +25,7 @@ wrds=. wrds ,' dddata ddfet ddbtype ddcheck ddrow ddins ddparm ddsparm dddbms dd
 wrds=. wrds ,' dddriver ddconfig ddcoltype'
 wrds=. wrds ,' userfn sqlbad sqlok sqlres sqlresok'
 wrds=. wrds , ' ', ;:^:_1 ('get'&,)&.> ;: ' DateTimeNull NumericNull UseErrRet UseDayNo UseUnicode CHALL'
-wrds=. ;: wrds
+wrds=. > ;: wrds
 
 cl=. '_jddmysql_'
 ". (wrds ,"1 '_z_ =: ',"1 wrds ,"1 cl) -."1 ' '
