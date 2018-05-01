@@ -3,7 +3,7 @@ NB. build
 mkdir_j_ jpath '~Addons/data/ddmysql/test'
 mkdir_j_ jpath '~addons/data/ddmysql/test'
 
-writesourcex_jp_ '~Addons/data/ddmysql/source/source';'~Addons/data/ddmysql/ddmysql.ijs'
+writesourcex_jp_ '~Addons/data/ddmysql/source';'~Addons/data/ddmysql/ddmysql.ijs'
 
 (jpath '~addons/data/ddmysql/ddmysql.ijs') (fcopynew ::0:) jpath '~Addons/data/ddmysql/ddmysql.ijs'
 
