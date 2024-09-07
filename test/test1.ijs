@@ -8,7 +8,7 @@ wrds=. wrds ,' userfn sqlbad sqlok sqlres sqlresok'
 wrds=. wrds , ' ', ;:^:_1 ('get'&,)&.> ;: ' DateTimeNull NumericNull UseErrRet UseDayNo UseUnicode CHALL'
 wrds=. ;: wrds
 4!:55 wrds ,&.> <'_z_'
-18!:55 <'jddmysql'
+271828&(18!:55) ::(18!:55) ::0: <'jddmysql'
 
 load 'data/ddmysql'
 
