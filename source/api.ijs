@@ -2,7 +2,13 @@ NB. api
 
 3 : 0''
 select. UNAME
-case. 'Linux';'FreeBSD';'OpenBSD' do. libmysql=: 'libmysqlclient.so.18'
+case. 'Linux';'FreeBSD';'OpenBSD' do.
+  a=. hostcmd_j_ 'ldconfig -p | grep libmysqlclient'
+  if. 0=#a do.
+    'libmysqlclient.so'
+  else.
+    ({.~i.&' ') dlb ' ' (I.a=TAB)} a
+  end.
 case. 'Darwin' do. libmysql=: 'libmysqlclient.dylib'
 case. 'Win' do. libmysql=: 'libmysql.dll'
 case. do. libmysql=: ''

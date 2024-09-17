@@ -19,7 +19,6 @@ FOLDER=: 'data/ddmysql'
 PLATFORMS=: ''
 
 FILES=: 0 : 0
-history.txt
 manifest.ijs
 ddmysql.ijs
 test/test1.ijs
